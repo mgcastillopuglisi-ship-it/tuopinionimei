@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tu opinión importa – Clínica estética IMèl Barcelona</title>
+  <meta name="description" content="Cuéntanos tu experiencia y recibe novedades y beneficios en Clínica estética IMèl Barcelona." />
+  <style>
+    /* ===== PALETA minimal: blanco + mint (logo) ===== */
+    :root{
+      --mint:#22c7b6;
+      --mint-600:#18b3a3;
+      --mint-50:#e9f9f7;
+      --bg:#ffffff;
+      --card:#ffffff;
+      --stroke:#e9eef3;
+      --text:#0f172a;
+      --muted:#475569;
+      --ring:rgba(34,199,182,.28);
+      --radius:20px;
+      --shadow:0 10px 30px rgba(2,6,23,.06);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; color:var(--text);
+      background:
+        radial-gradient(900px 600px at 110% -10%, rgba(34,199,182,.08), transparent 60%),
+        radial-gradient(800px 520px at -10% -20%, rgba(34,199,182,.06), transparent 50%),
+        var(--bg);
+      -webkit-text-size-adjust:100%;
+    }
+    .wrap{max-width:980px; margin-inline:auto; padding:28px}
+    .card{background:var(--card); border:1px solid var(--stroke); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden}
+    .hero{padding:22px; border-bottom:1px solid var(--stroke); background:#fff}
+    .logo{display:flex; align-items:center; justify-content:center}
+    .logo img{height:82px; width:auto; object-fit:contain}
+    .content{padding:22px}
+
+    h1{font-size:clamp(26px,3.2vw,38px); margin:4px 0 6px}
+    .sub{color:var(--muted); margin:0 0 10px}
+
+    /* Form compacto */
+    .lead{display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 6px; align-items:center}
+    .lead input{
+      flex:1 1 160px; min-width:160px; padding:12px 14px; font-size:16px; /* 16px para evitar zoom en iOS */
+      border:1px solid var(--stroke); border-radius:12px; background:#fff;
+      transition:border-color .2s, box-shadow .2s;
+    }
+    .lead input:focus{outline:none; border-color:var(--mint); box-shadow:0 0 0 5px var(--ring)}
+    .consent{display:flex; gap:8px; align-items:flex-start; font-size:13px; color:var(--muted); margin-top:4px}
+    .microcopy{
+      font-size:12.5px; color:#3b4a5a; background:var(--mint-50);
+      border:1px solid #dff3f0; padding:8px 10px; border-radius:10px; display:inline-block; margin-top:8px
+    }
+
+    /* Hint de interacción */
+    .hint{
+      display:inline-flex; gap:8px; align-items:center;
+      color:#0b3b36; background:var(--mint-50); border:1px solid #dff3f0;
+      font-weight:700; font-size:13px; padding:6px 10px; border-radius:999px; margin:10px 0 6px;
+    }
+    .chev{display:inline-block; animation:chev 1.2s ease-in-out infinite}
+    .chev:nth-child(2){animation-delay:.15s}
+    .chev:nth-child(3){animation-delay:.3s}
+    @keyframes chev{
+      0%,100%{transform:translateX(0); opacity:.7}
+      50%{transform:translateX(4px); opacity:1}
+    }
+
+    /* Botones de valoración + animaciones */
+    .ratings{display:flex; gap:12px; flex-wrap:wrap; margin:12px 0 10px}
+    .btn{
+      appearance:none; border:1px solid var(--stroke); border-radius:999px;
+      padding:14px 22px; font-weight:800; letter-spacing:.15px;
+      cursor:pointer; display:inline-flex; gap:10px; align-items:center;
+      background:#f6f8fb; color:#223;
+      transition:.18s transform,.18s background,.18s border-color,.18s box-shadow;
+      box-shadow:0 6px 18px rgba(2,6,23,.03); position:relative; overflow:hidden;
+      min-height:48px; touch-action:manipulation; -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:focus-visible{outline:none; box-shadow:0 0 0 6px var(--ring)}
+    .btn.neutral{background:#f2f5f8}
+    .btn.positive{background:var(--mint); color:#fff; border-color:transparent}
+    .btn.positive:hover{background:var(--mint-600)}
+    .emoji{font-size:18px}
+
+    /* Pulso inicial (se quita por JS a los 6s) */
+    .attn{animation:pulse 1.8s ease-in-out infinite}
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(34,199,182,.26)}
+      70%{box-shadow:0 0 0 14px rgba(34,199,182,0)}
+      100%{box-shadow:0 0 0 0 rgba(34,199,182,0)}
+    }
+
+    /* Ripple al clic */
+    .btn .ripple{
+      position:absolute; border-radius:50%; transform:scale(0); pointer-events:none; background:rgba(255,255,255,.55);
+      animation:ripple .6s ease-out forwards;
+    }
+    @keyframes ripple{ to{transform:scale(12); opacity:0} }
+
+    .callout{background:#fafcfd; border:1px solid var(--stroke); padding:12px 14px; border-radius:14px; margin:12px 0 6px}
+
+    /* Footer (contacto) */
+    .footer{
+      display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:flex-start;
+      margin-top:18px; padding:12px 22px; background:#fff; border-top:1px solid var(--stroke)
+    }
+    .footer a{color:#18b3a3; text-decoration:none; font-weight:800; display:inline-flex; gap:8px; align-items:center; position:relative}
+    .footer a::after{content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:currentColor; transform:scaleX(0); transform-origin:left; transition:transform .18s}
+    .footer a:hover::after{transform:scaleX(1)}
+
+    /* Legal al final (colapsable) */
+    .legal-footer{
+      padding:12px 22px; background:#fff; border-top:1px dashed var(--stroke);
+      font-size:12px; color:#617083;
+    }
+    .legal-footer details{max-width:900px; margin:0 auto}
+    .legal-footer summary{
+      cursor:pointer; list-style:none; font-weight:800; color:#18b3a3;
+    }
+    .legal-footer summary::-webkit-details-marker{display:none}
+    .legal-footer a{color:#18b3a3; font-weight:700; text-decoration:none; border-bottom:1px solid currentColor}
+
+    /* ====== Ajustes para móvil ====== */
+    @media (max-width: 640px){
+      .wrap{padding:16px}
+      .content{padding:16px}
+      .logo img{height:64px}
+      h1{font-size: clamp(22px, 7vw, 28px)}
+      .sub{font-size:15px}
+      .lead{gap:6px}
+      .lead input{padding:12px 14px; font-size:16px}
+      .hint{font-size:12px}
+      .ratings{
+        display:grid;
+        grid-template-columns: 1fr 1fr; /* 2 columnas en móvil */
+        gap:10px;
+      }
+      .ratings .btn{width:100%; justify-content:center; padding:14px 16px}
+      .footer{flex-direction:column; align-items:flex-start; gap:6px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <!-- HEADER -->
+      <div class="hero">
+        <div class="logo">
+          <img src="https://i.ibb.co/fz8KJc2G/Logo-Imei-1.png" alt="Clínica estética IMèl Barcelona">
+        </div>
+      </div>
+
+      <div class="content">
+        <h1>¡Tu opinión importa mucho!</h1>
+        <p class="sub">Hola 👋🏼, en <strong>Clínica estética IMèl Barcelona</strong> queremos estar cerca de ti. Déjanos tus datos y recibe novedades y beneficios exclusivos:</p>
+
+        <!-- FORM COMPACTO -->
+        <form id="leadForm" class="lead" aria-label="Tus datos para novedades y beneficios">
+          <input id="nombre" name="nombre" type="text" placeholder="Nombre">
+          <input id="email"  name="email"  type="email" placeholder="Email">
+          <input id="telefono" name="telefono" type="tel" placeholder="Teléfono">
+          <label class="consent">
+            <input type="checkbox" id="acepta">
+            <span>Acepto recibir la newsletter con novedades y beneficios. Puedo darme de baja cuando quiera.</span>
+          </label>
+          <span class="microcopy">Guardaremos los datos <em>solo</em> si los completas y marcas el consentimiento.</span>
+        </form>
+
+        <!-- HINT DE INTERACCIÓN -->
+        <div class="hint" aria-hidden="true">
+          <span>Elige una opción para valorar</span>
+          <span class="chev">➜</span><span class="chev">➜</span><span class="chev">➜</span>
+        </div>
+
+        <!-- VALORACIÓN -->
+        <div class="ratings" role="group" aria-label="Valoración de la experiencia">
+          <button class="btn neutral attn"  data-score="neg" aria-label="Muy mala"><span class="emoji">😣</span> Muy mala</button>
+          <button class="btn neutral attn"  data-score="neg" aria-label="Mala"><span class="emoji">😕</span> Mala</button>
+          <button class="btn neutral attn"  data-score="neg" aria-label="Regular"><span class="emoji">😐</span> Regular</button>
+          <button class="btn positive attn" data-score="pos" aria-label="Buena"><span class="emoji">🙂</span> Buena</button>
+          <button class="btn positive attn" data-score="pos" aria-label="Excelente"><span class="emoji">🤩</span> ¡Excelente!</button>
+        </div>
+
+        <div class="callout">
+          💡 <strong>Gracias por valorar:</strong> tu bienestar es el centro de todo en IMèl. Tu opinión nos ayuda a mejorar cada día.
+        </div>
+
+        <!-- FOOTER (contacto) -->
+        <div class="footer">
+          <span>📍</span>
+          <a href="https://www.google.com/maps?q=Carrer+de+Laforja,+62,+08006+Barcelona" target="_blank" rel="noopener" title="Abrir en Google Maps">
+            <span>Carrer de Laforja, 62, Sarrià-Sant Gervasi, 08006 Barcelona</span>
+          </a>
+          <span>·</span>
+          <span>📞</span>
+          <a href="tel:+34680639205" title="Toca para llamar"><span>680 63 92 05</span></a>
+        </div>
+
+        <!-- LEGAL (colapsable, texto exacto de BARVENEZ S.L.) -->
+        <div class="legal-footer">
+          <details>
+            <summary>Información legal y privacidad</summary>
+            <div style="margin-top:8px">
+              <p><strong>BARVENEZ S.L.</strong> es el Responsable del tratamiento de los datos personales del Usuario y le informa de que estos datos se tratarán de conformidad con lo dispuesto en el <strong>Reglamento (UE) 2016/679</strong>, de 27 de abril (GDPR), y la <strong>Ley Orgánica 3/2018</strong>, de 5 de diciembre (LOPDGDD), por lo que se le facilita la siguiente información del tratamiento:</p>
+              <p><strong>Fines y legitimación del tratamiento:</strong> prestación de servicios profesionales de salud y mantenimiento del historial clínico del Interesado (<em>con el consentimiento del interesado, art. 6.1.a GDPR</em>).</p>
+              <p><strong>Criterios de conservación de los datos:</strong> se conservarán durante no más tiempo del necesario para mantener el fin del tratamiento o existan prescripciones legales que dictaminen su custodia y cuando ya no sea necesario para ello, se suprimirán con medidas de seguridad adecuadas para garantizar la anonimización de los datos o la destrucción total de los mismos.</p>
+              <p><strong>Comunicación de los datos:</strong> no se comunicarán los datos a terceros, salvo obligación legal.</p>
+              <p><strong>Derechos que asisten al Usuario:</strong></p>
+              <ul>
+                <li>Derecho a retirar el consentimiento en cualquier momento.</li>
+                <li>Derecho de acceso, rectificación, portabilidad y supresión de sus datos, y de limitación u oposición a su tratamiento.</li>
+                <li>Derecho a presentar una reclamación ante la Autoridad de control (<a href="https://www.aepd.es/" target="_blank" rel="noopener">www.aepd.es</a>) si considera que el tratamiento no se ajusta a la normativa vigente.</li>
+              </ul>
+              <p><strong>Datos de contacto para ejercer sus derechos:</strong> BARVENEZ S.L., c/ Laforja, 62 - 08006 Barcelona (Barcelona). E-mail: <a href="mailto:info@imeibarcelona.com">info@imeibarcelona.com</a></p>
+              <p><strong>Datos de contacto del delegado de protección de datos:</strong> BM GESTDATA, S.L - ONTIDATA, Avda. Albaida, 19, 46870 Ontinyent - <a href="mailto:dpd@ontidadata.es">dpd@ontidadata.es</a></p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- mini toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite"><span class="dot"></span> ¡Gracias! Te llevamos a dejar tu valoración…</div>
+
+  <script>
+    /* ===== CONFIG ===== */
+    const POSITIVE_URL = "https://www.google.com/search?sca_esv=07c1394e5d835a50&tbm=lcl&sxsrf=AE3TifPvlVupwVFCICsynUiR_qV2z1yWaA:1757771313614&q=Cl%C3%ADnica+est%C3%A9tica+IM%C3%A8I+Barcelona+Rese%C3%B1as&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNLcwMzMwMjG1tDA3MzM2MDIzNdzAyPiKUds55_DavMzkRIXU4pLDK0tALE_fwys8FZwSi5JTc_LzEhWCUotTD29MLF7ESopqAD7ook93AAAA&rldimm=17866024598766302651&hl=es-ES&sa=X&ved=2ahUKEwj_gPq18NWPAxW4VqQEHWQsMOYQ9fQKegQINRAF&biw=1280&bih=631&dpr=1.5#lkt=LocalPoiReviews&lrd=0x12a4a315f1e3cbd7:0xf7f0deb6dddb35bb,3,,,,";
+    const NEGATIVE_URL = "https://tally.so/r/wbaAY6"; /* enlace para Muy mala / Mala / Regular */
+    const WEBHOOK_URL  = "https://PEGAR-TU-WEBHOOK-AQUI"; // Make / n8n / Apps Script / Airtable
+
+    /* Texto/versión del consentimiento para registrar exactamente lo aceptado (newsletter) */
+    const CONSENT_TEXT = "Acepto recibir la newsletter con novedades y beneficios. Puedo darme de baja cuando quiera.";
+    const FORM_VERSION = "v1.2";
+
+    /* payload a partir del form */
+    function buildPayload(source){
+      const nombre   = document.getElementById("nombre").value.trim();
+      const email    = document.getElementById("email").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
+      const acepta   = document.getElementById("acepta").checked;
+      const hasData  = !!(nombre || email || telefono);
+      return { 
+        nombre, email, telefono, acepta, hasData, source,
+        consent_ts: new Date().toISOString(),
+        consent_text: CONSENT_TEXT,
+        form_version: FORM_VERSION,
+        utm:{ referrer:document.referrer||null, url:location.href }
+      };
+    }
+
+    /* envío no bloqueante (beacon → fetch keepalive) respetando consentimiento */
+    function sendLead(payload){
+      const url = WEBHOOK_URL;
+      if (!url || url.includes("PEGAR-TU-WEBHOOK")) return;
+      if (!payload.hasData || !payload.acepta) return; // solo si hay datos y aceptó
+      try{
+        const data = JSON.stringify(payload);
+        const blob = new Blob([data], {type:"application/json"});
+        let ok = false;
+        if (navigator.sendBeacon) ok = navigator.sendBeacon(url, blob);
+        if (!ok) fetch(url, {method:"POST", headers:{"Content-Type":"application/json"}, body:data, keepalive:true, mode:"cors"}).catch(()=>{});
+      }catch(_e){}
+    }
+
+    /* abrir URL de forma robusta (embebido/Full Page) */
+    function navigateRobust(url){
+      try{
+        if (window.top && window.top !== window.self){
+          window.top.location.href = url; return;
+        }
+      }catch(_e){}
+      const a = document.createElement('a');
+      a.href = url; a.target = '_blank'; a.rel='noopener';
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+
+    /* mini toast */
+    function showToast(ms=500){
+      const t = document.getElementById("toast");
+      t.style.display="flex";
+      setTimeout(()=>{ t.style.display="none"; }, ms);
+    }
+
+    /* ripple */
+    function addRipple(e){
+      const btn = e.currentTarget;
+      const r = document.createElement('span');
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      r.className = 'ripple';
+      r.style.width = r.style.height = size + 'px';
+      r.style.left = (e.clientX - rect.left - size/2) + 'px';
+      r.style.top  = (e.clientY - rect.top  - size/2) + 'px';
+      btn.appendChild(r);
+      setTimeout(()=>r.remove(), 650);
+    }
+
+    /* rating → guardar (si procede) + ripple + toast + redirigir */
+    document.querySelectorAll(".btn[data-score]").forEach(btn=>{
+      btn.addEventListener("click", (e)=>{
+        addRipple(e);
+        const score = btn.getAttribute("data-score");
+        const url = score === "neg" ? NEGATIVE_URL : POSITIVE_URL;
+        const payload = buildPayload("auto-on-rating");
+        sendLead(payload);
+        if (score === "pos") { showToast(500); setTimeout(()=>navigateRobust(url), 520); }
+        else { navigateRobust(url); }
+      });
+    });
+
+    /* quitar pulso de atención a los 6s (para no molestar) */
+    setTimeout(()=>{ document.querySelectorAll('.attn').forEach(el=>el.classList.remove('attn')); }, 6000);
+
+    /* prevenir submit con Enter (no hay botón guardar) */
+    document.getElementById("leadForm").addEventListener("submit",(e)=>e.preventDefault());
+  </script>
+</body>
+</html>
